@@ -1,0 +1,10 @@
+CREATE USER docker WITH PASSWORD 'password' CREATEDB;
+
+CREATE DATABASE football_api
+WITH OWNER = docker
+CONNECTION LIMIT = -1;
+
+CREATE DATABASE football_api_test
+WITH OWNER = docker
+CONNECTION LIMIT = -1;
+

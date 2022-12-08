@@ -1,0 +1,49 @@
+version: '3'
+
+networks:
+  network:
+    driver: bridge
+
+services:
+  api:
+    container_name: football
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - DB_TYPE=postgres
+      - DB_HOST=postgres
+      - DB_USERNAME:${DB_USERNAME}
+      - DB_PASSWORD:${DB_PASSWORD}
+      - DB_DATABASE:${DB_DATABASE}
+      - DB_PORT:${DB_PORT}
+      - DB_SYNCHRONIZE=false
+      - DB_LOGGING=true
+      - DB_MIGRATIONS_RUN=false
+      - DB_MIGRATIONS=false
+      - DB_MIGRATIONS_TABLE=migrations
+      - DB_LOGGER=file
+      - DB_AUTOLOAD_ENTITIES=true
+      - DEFAULT_PAGINATED_RESULT_SIZE=10
+      - MAX_PAGINATED_RESULT_SIZE=10
+      - MIN_PAGE_NUMBER=1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    entrypoint: [ "yarn", "start:local" ]
+    env_file:
+      - .env.local
+    ports:
+      - ${PORT}:${PORT}
+    depends_on:
+      - postgres
+    networks:
+      - network
+  postgres:
+    image: postgres:latest
+    ports:
+      - '${DB_PORT}:${DB_PORT}'
+    environment:
+      POSTGRES_PASSWORD: '${DB_PASSWORD}'
+    volumes:
+      - ./docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+    networks:
+      - network

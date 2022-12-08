@@ -1,0 +1,5 @@
+
+export HOME_GRAPH_EXAMPLE="./football-api"
+alias cleanLocal="rm -rf $HOME_GRAPH_EXAMPLE/dist; npm run build"
+alias debugLocal="yarn start:debug:local"
+alias upContainerLocal="yarn docker-compose:api-up:local"

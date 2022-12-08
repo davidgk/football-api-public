@@ -1,0 +1,62 @@
+{
+	"info": {
+		"_postman_id": "fbe2378d-deb0-4483-b603-6eaec2c84eef",
+		"name": "ExampleGraphQL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2202551"
+	},
+	"item": [
+		{
+			"name": "GET- email",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\n  user_by_email(email: \"davidgk@davidgk.com.ar\") {\n    lastname\n    username\n    firstname\n  }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation insertUser {\n    createUser(createUserInput: { \n        lastname: $lastname,\n        username: $username,\n        firstname: $firstname,\n        email: $email\n    }\n  ){\n        lastname\n        username\n        firstname\n        email\n    }\n}",
+						"variables": " { \n        \"lastname\": \"Kotli\",\n        \"username\": \"Coatles\",\n        \"firstname\": \"Cecilia\",\n        \"email\": \"ceci@davidgk.com.ar\"\n}"
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
